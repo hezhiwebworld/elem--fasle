@@ -130,7 +130,7 @@ html {
 }
 .ellipsis {
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: hidden;
   white-space: nowrap;
 }
 

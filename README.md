@@ -32,4 +32,10 @@ npm run build --report
 > 此处有坑，目测需要vuex来排坑，正常的父子组件之间的通讯，组件
 > 的创建先后有个问题，----直接在swiper组件中异步请求数据
 
+7. 当用户选中地理位置之后，点击提交跳转回首页，如何把参数传递过去
+> https://router.vuejs.org/zh-cn/essentials/navigation.html
+> this.$router.push({ name: 'index', params : { address:   this.inputValue }})
+
+8. 城市列表顺序应该是后台排序好，在传递到前台
+> 这个问题属于接口文档本身的问题
 

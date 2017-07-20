@@ -1,13 +1,14 @@
 <template>
-    <div id="head-top" class="clear">
-       <div class="top-left left">
-           <slot></slot>
-           {{logo}}
+    <div id="head-top">
+       <div class="top-left">
+           <slot name="address"></slot>
+           <slot name="back"></slot>
        </div>
-       <div class="top-center left"></div>
-       <div class="top-right right">
-           <slot></slot>
-           {{weather}}
+       <div class="top-center">
+            <slot name="title"></slot>
+       </div>
+       <div class="top-right">
+          <slot name="weather"></slot>
        </div>
     </div>
 </template>
@@ -27,11 +28,35 @@ export default {
 #head-top{
     height: 2rem;
     background-color: #0096FF;
+    display: flex;
+    text-align: center;
+    line-height: 2rem;
+   
     .top-left{
-        color: white;
+       font-size: 14/20rem;
+       flex: 1;
+        span{
+            color: white;
+        }
+        a{
+            color: white;
+            padding-left: 10/20rem;
+        }
+     }
+    .top-center{
+        flex: 5;
+        font-size: 14/20rem;
+       span{
+            color: white;
+       }
+      
     }
     .top-right{
-        color: white;
+        flex: 1;
+        font-size: 14/20rem;
+       span{
+            color: white;
+       }
     }
 }
 </style>

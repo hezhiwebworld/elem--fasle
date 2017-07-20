@@ -1,10 +1,14 @@
 <template>
     <div>
-        <my-head></my-head>
-        <my-swiper></my-swiper>
-        <h2>附近商店</h2>
-        <shop-list></shop-list>
-        <my-foot></my-foot>
+      <my-head>
+        <router-link to="city" slot="address">{{city}}</router-link>
+        <span slot="title"></span>
+        <span slot="weather">天气</span>
+      </my-head>
+      <my-swiper></my-swiper>
+      <h2>附近商店</h2>
+      <shop-list></shop-list>
+      <my-foot></my-foot>
     </div>
 </template>
 <script>
@@ -16,12 +20,21 @@ import myShopList from '@/components/com/shopList'
 export default {
   name: 'index',
     //组件声明
+  data(){
+      return {
+         city: "上海"
+      }
+  },
   components: {
      'my-head'   :  myHead,
      'my-swiper' :  mySwiper,
      'my-foot'   :  myFoot,
      'shop-list' :  myShopList
   },
+  created() {
+    console.log(this.$route.params)
+    this.city = this.$route.params.address
+  }
   
 }
 </script>
