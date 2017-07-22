@@ -41,6 +41,13 @@ module.exports = {
         pathRewrite: {
           '^/dpi/*': '/'
         }
+      },
+       '/imgurl': {
+        target: 'http://images.cangdu.org',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/imgurl/*': '/'
+        }
       }
 	},
     // CSS Sourcemaps off by default because relative paths are "buggy"

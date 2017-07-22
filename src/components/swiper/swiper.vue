@@ -105,12 +105,6 @@ export default {
             }
         }
     }
-    .swiper-pagination{
-       .swiper-pagination-bullet{
-           width: 12px;
-           height: 12px;
-       }
-    }
 }
 </style>
 

@@ -46,3 +46,7 @@ npm run build --report
 
 10. 问题当切换商家视屏列表，主菜单需要消失，显示购物车
 
+11. 商家店铺api
+> http://cangdu.org:8001/shopping/v2/menu?restaurant_id=1
+
+

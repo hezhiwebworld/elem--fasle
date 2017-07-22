@@ -1,18 +1,19 @@
 <template>
     <div v-if="dataList" class="wrap">
-        <div class="item" 
+        <router-link 
+            :to="{ name: 'shop', params:{ id: item.id}}"
+            class="item" 
             v-for="item in dataList"
-            v-bind:key="item.id"
-        >
-            <div class="item-left">
-                <img :src= "'http://images.cangdu.org/' + item.image_path " />
-            </div>
-            <div class="item-right">
-                <p>{{ item.name }}<i>准</i></p>
-				<p><span></span>月售<span class="num">333</span>单 <i>准时达 蜂鸟专送</i></p>
-				<p>￥<span>50</span>起送  / 配送费￥<span>4</span>  <i>{{ item.distance }}km / 23分钟</i></p>
-            </div>
-        </div>
+            v-bind:key="item.id">
+                <div class="item-left">
+                    <img :src= "'http://images.cangdu.org/' + item.image_path " />
+                </div>
+                <div class="item-right">
+                    <p>{{ item.name }}<i>准</i></p>
+                    <p><span></span>月售<span class="num">333</span>单 <i>准时达 蜂鸟专送</i></p>
+                    <p>￥<span>50</span>起送  / 配送费￥<span>4</span>  <i>{{ item.distance }}km / 23分钟</i></p>
+                </div>
+        </router-link>
     </div>
 </template>
 <script>
