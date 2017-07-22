@@ -11,10 +11,10 @@
                       <p>公告：{{headData.promotion_info}}</p>
                   </div>
               </div>
-              <p class="cart">
-                  {{ headData.activities[0].icon_name }} 
-                  {{ headData.activities[0].description }}
-                  {{ headData.activities[0].name }}
+              <p  class="cart" v-for="(item,index) in headActiveOne" :key='item.id'>
+                  
+                   {{ item.name }} {{ item.description }}
+                
                <span>4个活动<i>></i></span></p>
           </div>
            <img :src="'/imgurl' + headData.image_path "  class="head-bg"/>
@@ -29,16 +29,10 @@
                 <!--商品对应的列表-->
                 <div class="shop-food">
                     <div class="item-left">
-                        <ul>
-                            <li>热销榜</li>
-                            <li>优惠</li>
-                            <li>优惠</li>
-                            <li>热销榜</li>
-                            <li>优惠</li>
-                            <li>优惠</li>
-                            <li>热销榜</li>
-                            <li>优惠</li>
-                            <li>优惠</li>
+                        <ul ref="menuFoodList">
+                            <li v-for="item in menuData" :key="item.id" v-on:click="sildeLeft()">
+                                {{item.name}}
+                            </li>
                         </ul>
                     </div>
                     <div class="item-right">
@@ -113,45 +107,79 @@ export default {
    data(){
        return{
            isShow : false,
-           api : '/dpi/shopping/restaurant/1',
+           api : '/dpi/shopping/restaurant',
+           menuapi: '/dpi/shopping/v2/menu',
            shopid : 1,
+           restaurant_id:1,  //店铺id
            headData: {},
+           headActiveOne: [],
+           menuData : {},
+           menuIndex : 1,
+           menuList : []  //存储左侧列表高度的数组
        }
    },
    created(){
       this.shopid = this.$route.params.id
+      this.restaurant_id = this.$route.params.id
    },
    mounted(){
        let that = this;
        //console.log( this.shopid )
        //头部数据
-        axios.get(this.api,{
-                params: {
-                    shopid : that.shopid
-                }
-            })
+        axios.get(this.api + '/' +  this.shopid )
             .then(function(res){
                 console.log(res)
                that.headData = res.data;
+               that.headActiveOne.push(res.data.activities[0])
             })
-   }
+        //左侧区域导航菜单
+        axios.get(this.menuapi,{
+            params :{
+                restaurant_id : that.restaurant_id
+            }
+        }).then(function(res){
+            that.menuData = res.data;
+        }).then(function(){
+            
+        })
+      
+   },
+   //定义方法
+  methods:{
+    //将左侧菜单的高度根据索引值存在数据里面
+    getmenuHeight(){
+        let newArr =  Array.from(this.$refs.menuFoodList.children)
+        newArr.forEach(function(ele,index){
+            that.menuList[index] = ele.offsetTop
+        })
+    },
+    sildeLeft( index ){
+    this.menuIndex = index;
+    let that = this;
+        console.log(this.menuList)
+    }
+  }
 }
 </script>
 <style lang="less" scoped>
 #shop-food{
-  
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
     .shop-head{
          background-color: white;
          padding: 10/20rem;
          overflow: hidden;
+         background-color: rgba(0, 0, 0, 0.8);
         .wrap{
            overflow: hidden;
            height: 100/20rem;
            position: relative;
-           
-           .shop-title{
-               
-                .img{
+           background-color: rgba(0, 0, 0, 0.8);
+          .shop-title{
+              position: absolute;
+              z-index: 3;
+               .img{
                      width: 2.9rem;
                      height: 2.9rem;
                      background-color: #eee;
@@ -162,18 +190,23 @@ export default {
                     }
                 }
                 .shop-con{
-                    padding-left: 10/20rem;
+                   padding-left: 10/20rem;
                     overflow: hidden;
                     font-size: 12/20rem;
                     h2{
                         text-align: left;
                         height: 27/20rem;
+                         color: white;
                     }
                     p{
                         font-size: 8/20rem;
+                        color: white;
                     }
                     p:nth-of-type(1){
                         margin-bottom: .2rem;
+                        i{
+                            color: white;
+                        }
                     }
 
                 }
@@ -181,8 +214,16 @@ export default {
             p.cart{
                 font-size: 4/20rem;
                 margin-top: 5/20rem;
+                position: absolute;
+                bottom: 10/20rem;
+                z-index: 3;
+                color: white;
                 span{
-                   float: right;
+                  color: white;
+                  padding-left: 80/20rem;
+                  i{
+                     color: white;
+                   }
                 }
             }
         }
@@ -191,8 +232,8 @@ export default {
             position: absolute;
             top: 0;
             left: 0;
-            z-index:-1;
-            filter:blur(10px)
+            z-index:1;
+            filter:blur(15px)
         }
     }
     .shop-body{
@@ -202,6 +243,9 @@ export default {
             display: flex;
             padding: .3rem 0 .6rem;
             border-bottom: 1px solid #ebebeb;
+            position: relative;
+            z-index: 2;
+            background-color: white;
             a{
                 flex: 1;
                 text-align: center;
@@ -212,16 +256,18 @@ export default {
             background-color: white;
             .shop-food{
                  display: flex;
+                  overflow: hidden;
                 .item-left{
-                    flex: 2;
+                    flex: 1;
+                    overflow: hidden;
                     ul{
                         li{
-                            font-size: 12/20rem;
+                            font-size: 11/20rem;
                             text-align: center;
-                            padding: .7rem .3rem;
-                            border-bottom: .025rem solid #ededed;
+                            padding: .7rem 0rem;
+                            border-bottom: .025rem solid #ccc;
                             box-sizing: border-box;
-                            background-color: #ccc;
+                            background-color: #EEE;
                         }
                         li.active{
                             background-color: white;
@@ -229,11 +275,11 @@ export default {
                     }
                 }
                 .item-right{
-                    flex: 7;
+                    flex:4;
                     h3{
                         font-size: 12 / 20rem ;
                         padding: .5rem .5rem;
-                         background-color: #ccc;
+                        background-color: #EEE;
                     }
                     .item{
                         padding: 10/20rem;
@@ -284,9 +330,7 @@ export default {
                         border-radius: 5/20rem;
                     }
                 }
-                .list{
-
-                }
+                
             }
         }
     }
