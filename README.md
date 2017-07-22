@@ -2,6 +2,8 @@
 
 > 一个仿ele的项目
 
+> 技术栈 vue2.0  axios   eventbus     es6   webpack   vue-cli  vue- router 响应式布局  弹性盒模型
+
 ## Build Setup
 
 ``` bash
@@ -38,4 +40,9 @@ npm run build --report
 
 8. 城市列表顺序应该是后台排序好，在传递到前台
 > 这个问题属于接口文档本身的问题
+
+9. 商家食品列表如果拆分成多个组件，通讯比较复杂
+> 唯一解决方案  vuex 来填坑
+
+10. 问题当切换商家视屏列表，主菜单需要消失，显示购物车
 
