@@ -7,7 +7,8 @@ import Shop from '@/page/shop/shop'
 
 // 测试better-scroll
 import good from '@/page/shop/good'
-
+import good1 from '@/page/shop/good1'
+import good2 from '@/page/shop/good2'
 Vue.use(Router)
 
 export default new Router({
@@ -31,6 +32,16 @@ export default new Router({
       path: '/good',
       name: 'good',
       component: good
+    },
+     {
+      path: '/good1',
+      name: 'good',
+      component: good1
+    },
+    {
+      path: '/good2',
+      name: 'good',
+      component: good2
     }
   ]
 })

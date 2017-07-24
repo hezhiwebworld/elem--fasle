@@ -6,7 +6,7 @@
                     class="food-list-hook"
                     v-for="(item,index) in goods" 
                     @click ="selectMenu( index, $event )"
-                    v-bind:class="{'active': currentIndex == index}"
+                    v-bind:class="{'active': currentIndex === index}"
                     :key="item.id">
                     {{item.name}}
                 </li>
@@ -138,6 +138,8 @@ export default {
         that.$nextTick(()=>{
             console.log(that.goods)
             that._initScroll();
+            //获取列表高度
+            that._calculateHeight()
         })
     })
      
@@ -155,7 +157,7 @@ export default {
         let el  = foodList[index]
         this.foodsScroll.scrollToElement( el, 300)
         this.menuScroll.scrollTo(0,this.listHeight[index])
-        console.log( el );
+        console.log( this.listHeight );
       },
       _initScroll(){
          this.menuScroll = new BScroll(this.$refs.menuWrapper,{
@@ -173,14 +175,21 @@ export default {
           console.log(this.$refs.menuWrapper)
       },
       _calculateHeight(){
-          let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook')
-          let height = 0 ;
-          this.listHeight.push( height );
-          for( let i = 0; i < foodList.length ; i++ ){
-                let item = foodList[i];
-                height += item.clientHeight;
-                this.listHeight.push( height )
-          }
+        //   let foodList = this.$refs.foodsWrapper
+        //   console.log( foodList )
+        //   let height = 0 ;
+        //   this.listHeight.push( height );
+        //   for( let i = 0; i < foodList.length ; i++ ){
+        //         let item = foodList[i];
+        //         height += item.clientHeight;
+        //         this.listHeight.push( height )
+        //   }
+            // let that = this;
+            // let newArr =  Array.from(this.$refs.foodsWrapper.children)
+            // newArr.forEach(function(ele,index){
+            //     that.foodList[index] = ele.offsetTop
+            
+            // })
       }
   },
   computed: {
