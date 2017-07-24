@@ -5,6 +5,9 @@ import Index from '@/page/index/index'
 import  City from '@/page/city/city'
 import Shop from '@/page/shop/shop'
 
+// 测试better-scroll
+import good from '@/page/shop/good'
+
 Vue.use(Router)
 
 export default new Router({
@@ -23,6 +26,11 @@ export default new Router({
       path: '/shop/:id?',
       name: 'shop',
       component: Shop
+    },
+    {
+      path: '/good',
+      name: 'good',
+      component: good
     }
   ]
 })

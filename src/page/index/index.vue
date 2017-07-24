@@ -1,6 +1,6 @@
 <template>
     <div>
-      <my-head>
+     <my-head>
         <router-link to="city" slot="address">{{city}}</router-link>
         <span slot="title"></span>
         <span slot="weather">天气</span>
@@ -17,6 +17,8 @@ import myHead from '@/components/head/my-head';
 import myFoot from '@/components/foot/foot'
 import mySwiper from '@/components/swiper/swiper'
 import myShopList from '@/components/com/shopList'
+
+import tt from '@/components/test'
 export default {
   name: 'index',
     //组件声明
@@ -29,7 +31,8 @@ export default {
      'my-head'   :  myHead,
      'my-swiper' :  mySwiper,
      'my-foot'   :  myFoot,
-     'shop-list' :  myShopList
+     'shop-list' :  myShopList,
+       tt
   },
   created() {
     console.log(this.$route.params)

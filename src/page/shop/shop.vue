@@ -30,7 +30,10 @@
                 <div class="shop-food">
                     <div class="item-left">
                         <ul ref="menuFoodList">
-                            <li v-for="item in menuData" :key="item.id" v-on:click="sildeLeft()">
+                            <li v-for="(item,index) in menuData" 
+                                :key="item.id" 
+                                v-on:click="sildeLeft(index)" 
+                                v-bind:class="{active: menuIndex == index}">
                                 {{item.name}}
                             </li>
                         </ul>
@@ -114,18 +117,47 @@ export default {
            headData: {},
            headActiveOne: [],
            menuData : {},
-           menuIndex : 1,
-           menuList : []  //存储左侧列表高度的数组
+           menuIndex : 0,
+           menuList : [],  //存储左侧列表高度的数组
+           showLoading: true, //  判断数据是否加载完成，同样可以作为前置动画的开关
+           maxMove:0,
+           minMove:0,
        }
    },
-   created(){
-      this.shopid = this.$route.params.id
-      this.restaurant_id = this.$route.params.id
+    mounted(){
+      this.initData()
    },
-   mounted(){
-       let that = this;
-       //console.log( this.shopid )
-       //头部数据
+   computed:{
+       
+   },
+   //定义方法
+  methods:{
+    //将左侧菜单的高度根据索引值存在数据里面
+    getmenuHeight(){
+        let that = this;
+        let newArr =  Array.from(this.$refs.menuFoodList.children)
+        newArr.forEach(function(ele,index){
+            that.menuList[index] = ele.offsetTop
+           
+        })
+         //console.log( this.menuList )
+    },
+    sildeLeft( index ){
+        this.menuIndex = index;
+        let that = this;
+            console.log(this.menuList)
+        //直接
+        console.log(this.menuIndex)
+        this.$refs.menuFoodList.style.transform =' translateY('+ ( - this.menuList[index-1] ) +'px)' 
+        this.$refs.menuFoodList.style.transition = "all 0.5s"
+    },
+    //定义一个初始化数据的方法
+    async initData(){
+        //参数
+        this.shopid = this.$route.params.id
+        this.restaurant_id = this.$route.params.id
+        let that = this;
+        //头部数据
         axios.get(this.api + '/' +  this.shopid )
             .then(function(res){
                 console.log(res)
@@ -139,25 +171,26 @@ export default {
             }
         }).then(function(res){
             that.menuData = res.data;
-        }).then(function(){
-            
+            that.dataCompleted()
         })
-      
-   },
-   //定义方法
-  methods:{
-    //将左侧菜单的高度根据索引值存在数据里面
-    getmenuHeight(){
-        let newArr =  Array.from(this.$refs.menuFoodList.children)
-        newArr.forEach(function(ele,index){
-            that.menuList[index] = ele.offsetTop
-        })
+
+        //执行到这里表示数据加载完成
+
     },
-    sildeLeft( index ){
-    this.menuIndex = index;
-    let that = this;
-        console.log(this.menuList)
+    //判断数据是否加载完成
+    dataCompleted(){
+        this.showLoading = false;
     }
+  },
+  //定义watch方法监视数据的变化
+  watch:{
+        showLoading:function(value){
+            if(!value){
+                this.$nextTick( () => {
+                    this.getmenuHeight()
+                })
+            }
+        }
   }
 }
 </script>

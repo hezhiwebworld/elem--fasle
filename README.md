@@ -49,4 +49,24 @@ npm run build --report
 11. 商家店铺api
 > http://cangdu.org:8001/shopping/v2/menu?restaurant_id=1
 
+12. $nextTick
+> 由于数据异步获取的，所有无法获取商家店铺的左侧的菜单的高度
+> 参考源码，定义watch方法
+
+```js
+ watch: {
+    //showLoading变化时说明组件已经获取初始化数据，在下一帧nextTick进行后续操作
+    showLoading: function (value){
+        if (!value) {
+            this.$nextTick(() => {
+                this.getFoodListHeight();
+           })
+        }
+    },
+ }
+```
+13. 测试better-scroll
+> 路由/good ---饿了吗商店商品列表特效
+
+
 

@@ -9,9 +9,9 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './src/main.js'   //入口文件
   },
-  output: {
+  output: {     //输出文件
     path: config.build.assetsRoot,
     filename: '[name].js',
     publicPath: process.env.NODE_ENV === 'production'
@@ -25,7 +25,7 @@ module.exports = {
       '@': resolve('src')
     }
   },
-  module: {
+  module: {  //配置各种加载器
     rules: [
       {
         test: /\.vue$/,

@@ -9,6 +9,8 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 //导入rem
 import './config/rem.js'
 
+import store from '@/store/store'
+
 Vue.config.productionTip = false
 Vue.use(VueAwesomeSwiper)
 
@@ -16,6 +18,7 @@ Vue.use(VueAwesomeSwiper)
 new Vue({
   el: '#app',
   router,
+  store,  //需要在这注入，全局才能使用
   template: '<App/>',
   components: { App }
 })
