@@ -12,7 +12,8 @@ import comment from '@/page/shop/commet'
 import shopdetail from '@/page/shop/children/shopdetail'
 //个人中心
 import personal from '@/page/personal/person'
-
+//表单验证
+import formLogin from '@/components/com/form'
 Vue.use(Router)
 
 export default new Router({
@@ -45,6 +46,10 @@ export default new Router({
       path: '/personal',
       component : personal,
     },
+    {
+      path: '/login',
+      component: formLogin
+    }
     
   ]
 })
