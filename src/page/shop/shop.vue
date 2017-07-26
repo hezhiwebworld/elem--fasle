@@ -1,9 +1,10 @@
 <template>
+<div>
   <div id="shop-food">
       <!--头部-->
       <div class="shop-head">
           <div class="wrap">
-             <router-link class="shop-title clear" to="/shop/shopdetail">
+             <router-link class="shop-title clear" to="/shopdetail">
                   <div class="img"><img :src="'/imgurl' + headData.image_path "   /></div>
                   <div class="shop-con">
                       <h2>{{headData.name}}</h2>
@@ -40,9 +41,13 @@
             :restaurantid="restaurant_id" 
             v-show="changeShowType=='food'"
             id="ratingContainer"
+
        ></goods>
        <comment  v-show="changeShowType=='comment'"></comment>
+       
   </div>
+  <router-view></router-view>
+ </div>
 </template>
 <script>
 //引入http请求
@@ -63,6 +68,7 @@ export default {
            menuData : {},
            menuIndex : 0,
            changeShowType: 'food', //切换食物和评价的品论
+           showChildren:  false    //控制子路由是否显示影藏
        }
    },
    components:{
@@ -70,7 +76,7 @@ export default {
         comment
    },
    created(){
-        this.restaurant_id = this.$route.params.id
+        this.restaurant_id = this.$route.query.id
    },
    mounted(){
        let that = this
@@ -81,16 +87,14 @@ export default {
             that.headData = res.data;
         })
         //获取路由参数
-        console.log(this.$route.params)
+        console.log(this.$route.query)
    },
    computed:{
        
    },
    
   methods:{
-    
-   
-  },
+ },
   //定义watch方法监视数据的变化
   watch:{
       

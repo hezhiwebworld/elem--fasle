@@ -42,7 +42,7 @@
         	<svg class="icon_style">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="$route.path.indexOf('profile') !== -1? '#profileActive' : '#profile'"></use>
             </svg>
-            <span>我的</span>
+            <span><router-link to="/personal">我的</router-link></span>
         </section>
     </section>
 </template>

@@ -10,6 +10,9 @@ import Shop from '@/page/shop/shop'
 import good2 from '@/page/shop/good2'
 import comment from '@/page/shop/commet'
 import shopdetail from '@/page/shop/children/shopdetail'
+//个人中心
+import personal from '@/page/personal/person'
+
 Vue.use(Router)
 
 export default new Router({
@@ -30,16 +33,18 @@ export default new Router({
       component: Shop,
     },
     {
+      path: '/shopdetail',
+      component : shopdetail,
+    },
+    {
       path: '/shop',
       component : Shop,
-       children: [
-        {
-            path: 'shopdetail',  //商铺详情页的字路由
-            component: shopdetail
-        },
-       
-      ]
-    }
+    },
+    // 个人中心
+     {
+      path: '/personal',
+      component : personal,
+    },
     
   ]
 })

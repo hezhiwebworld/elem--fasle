@@ -1,6 +1,5 @@
 <template>
     <div>
-      <tt>111</tt>
      <my-head>
         <router-link to="city" slot="address">{{city}}</router-link>
         <span slot="title"></span>

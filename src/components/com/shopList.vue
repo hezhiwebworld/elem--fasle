@@ -1,7 +1,7 @@
 <template>
     <div v-if="dataList" class="wrap">
         <router-link 
-            :to="{ name: 'shop', params:{ id: item.id}}"
+            :to="{ name: 'shop', query:{ id: item.id}}"
             class="item" 
             v-for="item in dataList"
             v-bind:key="item.id">

@@ -42,7 +42,9 @@
           </div>
           <!--商家信息-->
       </div>
+      
 </div>
+
 </template>
 <script>
 //导入头部组件
