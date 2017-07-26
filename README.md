@@ -68,5 +68,23 @@ npm run build --report
 13. 测试better-scroll
 > 路由/good ---饿了吗商店商品列表特效
 
+14. 当一个页面有子路由的时候，并且这个页面需要参数的时候
+```js
+    参数挂载的形势 用query,千万不要用params，不然子路由完全是不会执行的会被
+    拦截掉====以下是错误的写法
+     {
+      path: '/shop/:id?',
+      component : Shop,
+       children: [
+        {
+            path: 'shopdetail',  //商铺详情页的字路由
+            component: shopdetail
+        },
+       
+      ]
+    }
+    
+```
+
 
 

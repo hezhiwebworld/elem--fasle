@@ -1,4 +1,5 @@
 <template>
+<div>
     <div class="goods">
         <div class="menu-wrapper" ref="wrapperMenu" id="wrapper_menu">
             <ul>
@@ -27,7 +28,7 @@
                                 <h4>好吃的动心{{ n }}</h4>
                                 <p>好吃的动心</p>
                                 <p>月售673份 <span>好评路</span></p>
-                                <p>月售673份 <span>好评路</span></p>
+                                <p>月售673份 <span>好评路</span><i class="icon iconfont icon-jiahao" @touchstart="addToCart(1,2,30,'苹果')"></i></p>
                             </div>
                         </div>
                     </li>
@@ -36,7 +37,12 @@
             
             <!--右侧内容区-->
         </div>
+     </div>
+    <div class="shopcart">
+        <cart></cart>
     </div>
+</div>  
+    
 </template>
 <script>
 //引入http请求
@@ -44,15 +50,17 @@ import axios from 'axios';
 //使用移动端事件
 import BScroll from "better-scroll";
 
+import cart from "@/components/com/cart"
+//从vuex中引入两个方法
+import {mapState, mapMutations} from 'vuex'
+
 export default {
+  props:['shopid','restaurantid'],
   data(){
         return {
             goods: [],
             api : '/dpi/shopping/restaurant',
             menuapi: '/dpi/shopping/v2/menu',
-           
-            restaurant_id:1,
-            shopid:1,
             listHeight: [] ,  //计算y轴累加的高度
             scrollY: 0 ,   // y周方向滚动的距离
 
@@ -62,20 +70,18 @@ export default {
             showLoading: true, //  判断数据是否加载完成，同样可以作为前置动画的开关
         }
   },
-  created(){
-    this.shopid = 1
-    this.restaurant_id = 1
-    let that = this;
-      //头部数据
-    // axios.get(this.api + '/' +  1 )
-    // .then(function(res){
-    //     console.log(res)
-    //     that.goods = res.data;
-    // })
+  components:{
+      cart
+  },
+  computed: {
+        ...mapState(['cartList'])
+  },
+  mounted(){
+   let that = this;
     //左侧区域导航菜单
     axios.get(this.menuapi,{
         params :{
-            restaurant_id : that.restaurant_id
+            restaurant_id : that.restaurantid
         }
     }).then(function(res){
         that.goods = res.data;
@@ -86,6 +92,15 @@ export default {
   },
   //定义滚动的方法
   methods: {
+    ...mapMutations([
+        'add_cart'
+    ]),
+    //定义一个方法添加商品到购物车
+     addToCart(shopid,food_id,price,name){
+        //更改数据仓库里面的数值
+        this.add_cart({ shopid,food_id,price,name})
+    },
+
      //判断数据是否加载完成
     dataCompleted(){
         this.showLoading = false;
@@ -158,14 +173,16 @@ export default {
 .goods{
     display: flex;
     position: absolute;
-    top: 174px;
+    top: 184px;
     bottom: 46px;
     width: 100%;
     overflow: hidden;
     background: white;
+    z-index: 99;
     .menu-wrapper{
         width: 80px;
         background: #f3f5f7;
+        overflow: hidden;
         ul{
             li{
                 font-size: 11/20rem;
@@ -211,13 +228,22 @@ export default {
                     p{
                         font-size: 8/20rem; 
                         padding-top: .3rem;
+                        i{
+                            margin-left: 40px;
+                            color: #007ACC;
+                        }
                     }
                 }
             }
         }
     }
 }
-
+.shopcart{
+    position: absolute;
+    height: 46px;
+    bottom: 0px;
+    width: 100%;
+}
 </style>
 
 

@@ -8,7 +8,7 @@
       </h3>
       <p>
           <button @click="$store.commit('add')">+</button>
-          <button @click="$store.commit('reduce')">-</button>
+          <button @click="reduce(2)">-</button>
       </p>
   </div>
 </template>
@@ -23,6 +23,9 @@ export default {
   //在计算属性中
   computed:{
       ...mapState(['count'])
+  },
+  methods:{
+      ...mapMutations(['reduce'])
   }
   
 }
