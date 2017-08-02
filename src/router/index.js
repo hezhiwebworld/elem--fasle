@@ -14,6 +14,12 @@ import shopdetail from '@/page/shop/children/shopdetail'
 import personal from '@/page/personal/person'
 //表单验证
 import formLogin from '@/components/com/form'
+//图片上传裁剪
+import upimage from '@/page/upimage/up'
+
+//过渡动画组件
+import animate from '@/components/animate/animate'
+
 Vue.use(Router)
 
 export default new Router({
@@ -49,6 +55,15 @@ export default new Router({
     {
       path: '/login',
       component: formLogin
+    },
+    //图片上传插件
+    {
+      path: '/upimage',
+      component: upimage
+    },
+    {
+      path: '/animate',
+      component: animate
     }
     
   ]

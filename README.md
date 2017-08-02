@@ -89,5 +89,12 @@ npm run build --report
 15. 增加vuex ，完善购物车的功能
 > 通过辅助函数将数据仓库里面的数据映射成---简写
 
+16. 当只有一个组件的时候，配置路由时，一定要注意
+
+```js
+    是component  不是components
+    //否则会报下面这个不明所以的错
+    Cannot read property '_c' of undefined
+```
 
 
